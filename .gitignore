@@ -1,0 +1,9 @@
+# ignore ALL files specified here
+keys.py
+
+# ignore ALL files in ANY directory specified here
+myenv/
+__pycache__/
+.cache/
+logs/*
+!logs/concept_generator_2024-05-21 19:45:24.048438.txt
