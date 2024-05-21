@@ -1,65 +1,42 @@
 # LLM-Knowledge-Pool-RAG
 
-The repository contains **Part 1** of an LLM Pipeline for Design Exploration.
+The repository contains **Part 2** of an LLM Pipeline for Design Exploration.
 
-This project covers parsing raw data, creating an embedding database, and doing knowledge retrieval with a RAG system.
+This project covers different techniques to approach and explore design concepts out of a project Knowledge Pool - checkout [Part 1](https://github.com/jomi13/LLM-Knowledge-Pool-RAG) first.
 
 ## Setup
-
--- Start by creating a virtual environment (python 3.10 is recomended):
-
-
+1. Clone this repo into the same parent folder as the repo of **Part 1**.
 ```bash
 git clone https://github.com/jomi13/LLM-Knowledge-Pool-RAG
-cd <your local repo directory>
-python3.10 -m venv myenv
-source myenv/bin/activate
-pip install -r requirements.txt
 ```
+2. Move the `myenv` folder (virtual environment) created in last class to the parent folder of this project. Your folder structure should look like this:
+```bash
+>parent folder<
+    -LLM-Knowlege-Pool-RAG
+    -LLM-Conversational-Agents
+    -myenv
+```
+3. Go to Visual Studio Code `settings` and search `python.venvPath`. In the path field, enter the path to the parent folder (e.g. /Users/joao/`parentfolder`).
+This will guarantee that anytime the project in open in VSC, it will use python from your virtual environment. Do the same for Part 1 repo.
+![alt text](https://i.ibb.co/GVxQFMV/vsc.png)
 
--- Create a `keys.py` file inside the directory, containing any necessary keys you may need, like so:
+
+4. Copy `keys.py` from **Part 1** repo to this project. Grab an API key from [Replicate](https://replicate.com) and add it to `keys.py` like so:
 
 ```python
-
-LLAMAPARSE_API_KEY = "<your key>"
-OPENAI_API_KEY = "<your key>"
-REPLICATE_API_TOKEN = "<your key>"
-....
-
+os.environ["REPLICATE_API_TOKEN"] = "your-api-key"
 ```
-> **Note:** For Part 1, you only need a key from [Llama-index](https://cloud.llamaindex.ai).
 
--- Install [LM Studio](https://lmstudio.ai) and download:
-
-- An LLM of your preference **in GGUF format**, such as "lmstudio-community/Meta-Llama-3-8B-Instruct-GGUF"
-
-- An embedding model, such as: "nomic-ai/nomic-embed-text-v1.5-GGUF"
-
-
--- In `config.py`, setup the configuration for the model you just downloaded. Example for Llama 3:
-
-```python
-llama3 = [
-{
-"model": "lmstudio-community/Meta-Llama-3-8B-Instruct-GGUF",
-'api_key': 'any string here is fine',
-'api_type': 'openai',
-'base_url': "http://localhost:1234/v1",
-"cache_seed": random.randint(0, 100000),
-}]
-
-```
 
 ## Running
 
---In LM Studio:
-- Go to **Local Server** and load both models
-- Click **Start Server**
+--This project contains 7 examples to be explored by order:
+- `01_concept_generator` generates 5 short concepts that respond to the context retrieved by the RAG agent on the knowledge pool.
+- `02_concept_tasks` takes one concept you want to investigate further with pre-defined tasks.
+- `03_concept_q&a` is similar, but uses questions instead of tasks.
+- `04_concept_chaining` is a prompt-chaining script where you can chain your instructions.
+- `05_concept_discussion` makes a conversation between an intern (creates concepts) and a jury (asks questions about them).
+- `06_image_caption` creates detailed descriptions from images to create caption datasets.
+- `07_image_discussion` opens a conversation where images are generated and reviewed to check if they belong to the building on the first image.
 
--- Run the python scripts in order:
-- `01_parse_pdf.py` will take any pdfs inside the knowledge_pool folder and turn them into structured .txt files.
-- `02_create_vector_db.py` will create an embeddings database as a json.
-- `02.1_merge_embeddings.py` is for optional use, if you want to join multiple embedding sources into a single one.
-- `03_ask_rag.py`will let you ask questions about your corpus of text with a RAG system.
-
-> **Note:** To run the RAG with your **own corpus of text**, place any pdf files inside the folder `knowledge_pool`. The script `03_ask_rag` has **two modes**: local inference (with LM Studio) or using OpenAI (GPT/4) - check inside for more details.
+**Experiment with these scripts to see how they interact with the LLM. Each one serves as an example. Adapt them to your logic, map out successful chains, and explore different ideas in system prompts. Have fun.**
