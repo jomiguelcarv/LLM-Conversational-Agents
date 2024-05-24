@@ -8,7 +8,7 @@ open_logs("concept_chaining")
 # RAG Parameters
 question = "What is the list of building program?"
 embeddings_json= "../LLM-Knowledge-Pool-RAG/knowledge_pool/Competition_brief.json"
-num_results = 10
+num_results = 100
 
 def brainstorm_brief(rag_result: str)-> str:
     response = client.chat.completions.create(
@@ -137,6 +137,8 @@ print("###PROMPTS###")
 prompts = make_prompt(conceptualize)
 print(prompts)
 print("________________")
+
+
 
 # name = get_name(brainstorm)
 # print("###OTHERS###")

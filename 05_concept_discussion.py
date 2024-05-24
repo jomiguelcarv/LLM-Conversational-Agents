@@ -24,7 +24,7 @@ intern = ConversableAgent(name="intern",
                        is_termination_msg = lambda msg: msg.get("content") is not None
                         and "100%" in msg["content"],
                        llm_config={
-                           "config_list": agent_completion_model,
+                           "config_list": gpt4_turbo,
                            "temperature": 0.9,
                        },
                        code_execution_config=False,
@@ -44,7 +44,7 @@ jury= ConversableAgent(name="jury",
                         and "100%" in msg["content"],
                         # human_input_mode="ALWAYS",
                        llm_config={
-                           "config_list": agent_completion_model,
+                           "config_list": gpt4_turbo,
                            "temperature": 0.9,
                        })
 

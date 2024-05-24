@@ -30,7 +30,7 @@ def question_concept(tasks: str, concept: str)-> str:
                 "role": "user",
                 "content": 
                         f"""You are given a set of tasks and a brief summaries of a building design concept.
-                        Answer the tasks for each of the concepts. Be imaginative and creative in your answers:
+                        Be imaginative and creative in your answers:
                         #CONCEPTS#: {concept}
                         #TASKS#: {tasks}
                         """,

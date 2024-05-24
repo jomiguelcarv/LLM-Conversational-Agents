@@ -20,11 +20,12 @@ if mode == "local":
 #Create an iterated prompt to improve score
 #Repeat image generation...
 
-
 image = "https://media.istockphoto.com/id/490734017/photo/old-factory-building-facade.jpg?s=612x612&w=0&k=20&c=Z5ixfLuF_2mNgkh5SICiPcXvpzBVvuaQqBaUe3SarqQ="
 space_prompt = "the lobby of the hotel"
 
 # Define the agents involved in the conversation
+
+
 image_generator = ConversableAgent(
     name="Image_Generator",
     system_message = """
@@ -33,8 +34,7 @@ image_generator = ConversableAgent(
     You will continuously iterate the image based on feedback from img_reviewer until the img_reviewer is satisfied with the result.
     """,
     llm_config = {
-        "config_list": agent_vision_model,
-        # "timeout": 120,
+        "config_list": gpt4_vision,
         },
     )
 
@@ -49,7 +49,7 @@ img_reviewer = ConversableAgent(
     and generate an interated text prompt for the img generation model to fill the gap of discrepancy.
     """,
     llm_config = {
-        "config_list": agent_vision_model,
+        "config_list": gpt4_vision,
         # "timeout": 120,
     },
     is_termination_msg = lambda msg: "95% match" in msg["content"].lower(),
@@ -63,7 +63,7 @@ img_captioner = ConversableAgent(
     Answer in the specific format that is required.
     """,
     llm_config = {
-        "config_list": agent_vision_model,
+        "config_list": gpt4_vision,
         # "timeout": 120,
     },
     is_termination_msg = lambda msg: "95% match" in msg["content"].lower(),
@@ -73,7 +73,7 @@ img_captioner = ConversableAgent(
 user_proxy = ConversableAgent(
     name="User",
     llm_config = {
-        "config_list": agent_completion_model,
+        "config_list": gpt4_vision,
         # "timeout": 120,
     },
     is_termination_msg = lambda msg: msg.get("content") is not None
@@ -112,7 +112,7 @@ group_chat = GroupChat(
 group_chat_manager = GroupChatManager(
     groupchat = group_chat,
     llm_config={
-        "config_list": agent_completion_model,
+        "config_list": gpt4_vision,
     }
 )
 
