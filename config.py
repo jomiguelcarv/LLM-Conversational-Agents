@@ -6,7 +6,7 @@ import base64
 import sys
 from datetime import datetime
 # Mode
-mode = "local" # "local" or "openai"
+mode = "openai" # "local" or "openai"
 
 # API
 local_client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
@@ -191,7 +191,8 @@ class Tee:
 
 def open_logs(script_name):
     sys.dont_write_bytecode = True
-    logs = f"logs/{script_name}_{datetime.now()}.txt"
+    current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    logs = f"logs/{script_name}_{current_datetime}.txt"
     log_file = open(logs, "w")
     sys.stdout = Tee(sys.stdout, log_file)
 
